@@ -10,14 +10,20 @@ $(document).ready(function() {
 
 var createNewGIFButton = function () {
 
-    // Area where new GIF buttons are stored starts off empty
+    // Area where GIF buttons are stored starts off empty
     $("newGIFButtons").empty();
 
     // For loop that loops through each individual variable in the array and creates new button for each
     for (var i = 0; i < transportation.length; i++) {
-        // New button for each GIF created
+        // New button for each GIF in array created
         var GIFbutton = $("<button type =" + "button" + ">" + transportation[i] + "</button>").addClass("carBtn").attr("data-transportation", transportation[i]);
         $("#newGIFButtons").append(GIFbutton);
+
+        $(".submit").on("click", function(){
+            var newButton = $("#search-transportation").val().trim();
+            transportation.push(newButton);
+    
+            });
     };
 }
 
@@ -49,7 +55,6 @@ $.ajax({
         // Rating tag created to show the rating of the gif
         var r = $("<p>").text("Rating: " + transportResults[i].rating);
 
-
         
         // A data state of still is added to the gifs
         transportImage.attr("src", transportResults[i].images.fixed_height_still.url);
@@ -60,8 +65,9 @@ $.ajax({
         transportImage.addClass("transGif");
 
 
-        $("#GIFs").on("click", ".transGif", function(event){
+        $(".transGif").on("click", function(event){
             event.preventDefault();
+            $("newGIFButtons").empty();
             var gifState = $(this).attr("data-transportation-state");
             if (gifState === "still") {
             // If a gif is in a still state, click on it and then it animates
@@ -71,8 +77,7 @@ $.ajax({
             } else {
                 $(this).attr("src", $(this).attr("data-transportation-still"));
                 $(this).attr("data-transportation-state", "still");
-            }
-            
+            }    
             
         });
         
@@ -82,34 +87,9 @@ $.ajax({
         // Append the rating into the rating div below the transportImage div
         $("#GIFs").append(r);
 
-
-        $(".submit").on("click", function(){
-            createNewGIFButton;
-        })
-
-
     }
 })
 
-
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })
