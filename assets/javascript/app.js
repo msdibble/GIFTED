@@ -63,31 +63,29 @@ $.ajax({
         // A data state of animation is added to the gifs
         transportImage.attr("data-transportation-animate", transportResults[i].images.fixed_height.url);
         transportImage.addClass("transGif");
-
-
-        $(".transGif").on("click", function(event){
-            event.preventDefault();
-            $("newGIFButtons").empty();
-            var gifState = $(this).attr("data-transportation-state");
-            if (gifState === "still") {
-            // If a gif is in a still state, click on it and then it animates
-                $(this).attr("src", $(this).attr("data-transportation-animate"));
-                $(this).attr("data-transportation-state", "animate");
-            // If a gif is in an animation state, click on it again and it is still
-            } else {
-                $(this).attr("src", $(this).attr("data-transportation-still"));
-                $(this).attr("data-transportation-state", "still");
-            }    
-            
-        });
         
-
         // Append the image into the transportImage div
         $("#GIFs").append(transportImage);
         // Append the rating into the rating div below the transportImage div
         $("#GIFs").append(r);
 
     }
+
+    $(".transGif").on("click", function(event){
+        event.preventDefault();
+        $("newGIFButtons").empty();
+        var gifState = $(this).attr("data-transportation-state");
+        if (gifState === "still") {
+        // If a gif is in a still state, click on it and then it animates
+            $(this).attr("src", $(this).attr("data-transportation-animate"));
+            $(this).attr("data-transportation-state", "animate");
+        // If a gif is in an animation state, click on it again and it is still
+        } else {
+            $(this).attr("src", $(this).attr("data-transportation-still"));
+            $(this).attr("data-transportation-state", "still");
+        }    
+        
+    });
 })
 
 })
